@@ -1,5 +1,4 @@
 
-    //---------------------------Problem Num 1 & solution--------------------------//
     function formatString(input: string, toUpper?: boolean): string {
         if(toUpper!=false){
            return input.toUpperCase();
@@ -13,10 +12,7 @@
 
 
 
-
-
-    //---------------------------Problem Num 2 & solution--------------------------//
-     function filterByRating(items: { title: string; rating: number }[]): { title: string; rating: number }[] | void{
+     function filterByRating(items: { title: string; rating: number }[]): { title: string; rating: number }[]{
         const filteredProduct = items.filter((product)=>product.rating >= 4)
         return filteredProduct;
      }
@@ -25,26 +21,23 @@
       { title: "Book A", rating: 4.5 },
       { title: "Book B", rating: 3.2 },
       { title: "Book C", rating: 5.0 }
-    ];
-    
-    const result2= filterByRating(books);
-    console.log(result2)
+    ]; 
+    // const result2= filterByRating(books);
+    // console.log(result2)
 
-     //---------------------------Problem Num 3 & solution--------------------------//
-     function concatenateArrays<T>(...arrays: T[][]): T[] | void{
+
+
+     function concatenateArrays<T>(...arrays: T[][]): T[]{
         return arrays.reduce((acc, curr) => [...acc,...curr], []);
          
      }
-
-    const result3= concatenateArrays(["a", "b"], ["c"]);  
-    console.log(result3)
-
+    // const result3= concatenateArrays(["a", "b"], ["c"]);  
+    // console.log(result3)
 
 
 
-     //---------------------------Problem Num 4 & solution--------------------------//
-
-     class Vehicle {
+     
+    class Vehicle {
         make:string;
         year:number;
 
@@ -52,13 +45,11 @@
             this.make = make;
             this.year = year
         }
-
         getInfo(){
             return `Make: ${this.make}, Year: ${this.year}`;
         }
      }
 
-     
      class Car extends Vehicle{
         model:string;
 
@@ -73,7 +64,6 @@
         
      }
 
-
      const myCar = new Car("Toyota", 2020, "Corolla");
      myCar.getInfo();
      myCar.getModel();  
@@ -81,8 +71,6 @@
 
 
 
-
-      //---------------------------Problem Num 5 & solution--------------------------//
       function processValue(value:string | number) :number{
         if(typeof value == "string"){
            return (value as string).length;
@@ -97,15 +85,13 @@
 
      
 
-
-       //---------------------------Problem Num 6 & solution--------------------------//
-
-       interface Product {
+      
+      interface Product {
         name: string;
         price: number;
       }
       
-      function getMostExpensiveProduct(products: Product[]): Product | null{
+      function getMostExpensiveProduct(products: Product[]): Product{
         const maxPricedProduct = products.reduce((max,current)=> current.price > max.price ? current : max)
         return maxPricedProduct
       }
@@ -117,13 +103,13 @@
       ];
       
      const result6 = getMostExpensiveProduct(products);
-     console.log(result6)
+    //  console.log(result6)
 
 
 
 
 
-     //---------------------------Problem Num 7 & solution--------------------------//
+     
      enum Day {
         Monday,
         Tuesday,
@@ -142,11 +128,11 @@
         }
       }
 
-     console.log(getDayType(Day.Saturday)) 
+    //  console.log(getDayType(Day.Saturday)) 
 
 
 
-       //---------------------------Problem Num 8 & solution--------------------------//
+    
      async function squareAsync(n: number): Promise<number>{
         if(n<0){
             throw new Error("Negative number not allowed");
