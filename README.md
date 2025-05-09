@@ -1,8 +1,65 @@
-Write an impactful blog post on 2 of the following questions:
-What are some differences between interfaces and types in TypeScript?
-What is the use of the keyof keyword in TypeScript? Provide an example.
-Explain the difference between any, unknown, and never types in TypeScript.
-What is the use of enums in TypeScript? Provide an example of a numeric and string enum.
-What is type inference in TypeScript? Why is it helpful?
-How does TypeScript help in improving code quality and project maintainability?
-Provide an example of using union and intersection types in TypeScript
+আজ আমি কথা বলব TypeScript এর any, unknown এবং never টাইপ নিয়ে। এছাড়া ও ট্যাপেস্ক্রিপ্টের ইউনিয়ন এবং ইন্টারসেকশন নিয়ে কিছুটা এক্সপ্লেইন করার চেষ্টা করবো উদাহরণসহ, শুরুতে এই টাইপগুলো আমাদের অনেকের কাছেই বিভ্রান্তিকর লাগে, আর আমরা বুঝতে পারি না কোনটা কখন ব্যবহার করব। তাই চল আজকে এই টাইপগুলো নিয়ে বিস্তারিতভাবে জেনে নেই।
+
+১. Any
+TypeScript-এর any টাইপ মানে হলো – কোনো ভ্যারিয়েবলের টাইপ আপনি জানেন না বা নির্দিষ্ট করতে চান না। এই টাইপ ব্যবহার করলে TypeScript কম্পাইলার আর কোনো টাইপ চেক করবে না। আপনি যেটাই ভ্যালু দেন না কেন, TypeScript ধরে নিবে ঠিক আছে। ভুল হলেও কোনো সমস্যা দেখাবে না।
+সহজ ভাষায় বললে: any টাইপ মানে হলো “যেকোনো কিছু”, আপনি যা খুশি রাখেন, TypeScript কিছু বলবে না। 
+
+২. Unknown
+unknown টাইপ দেখতে any এর মতো হলেও এটা অনেক বেশি নিরাপদ। আপনি যদি না জানেন ভ্যারিয়েবলের টাইপ কী হবে, কিন্তু চান সেটি ব্যবহারের আগে টাইপ চেক করতে – তাহলে unknown টাইপ ব্যবহার করুন। উদাহরণ:
+
+let input: unknown = "hello";
+
+if (typeof input === "string") {
+  console.log(input.toUpperCase());
+}
+
+এখানে আমরা input ভ্যারিয়েবল এর টাইপ আগে চেক করেছি – সেটা string কিনা। তারপর সেটা কে দিয়ে আমি কিছু একটা করছি। তাই এটা অনেক সুরক্ষিত।
+
+
+৩. Never
+never টাইপ ব্যবহার করা হয় এমন ফাংশনে যেগুলো কখনোই কোনো কিছু রিটার্ন করে না – বরং সরাসরি error দেয় বা প্রোগ্রাম থামিয়ে দেয়।
+
+উদাহরণস্বরূপ:
+function throwError(message: string): never {
+  throw new Error(message);
+}
+
+এই ফাংশনটা কোনো কিছুর রিটার্ন দেয় না, বরং সোজা একটা error ছুঁড়ে দেয়। তাই এর টাইপ হবে never
+
+৪.Union type: Union টাইপ মানে হলো — একটা ভেরিয়েবল একাধিক টাইপের যেকোনো একটা হতে পারে। এটা ব্যবহার হয় যখন তুমি চাও, কোনো ভেরিয়েবল একাধিক টাইপের যেকোনো একটা টাইপ হোক। উদাহরণ:
+
+function getValue(value: string | number) {
+  console.log("Value:", value);
+}
+
+getValue("Hello");
+getValue(123);
+
+এখানে getValue() ফাংশনটা string অথবা number টাইপ নিতে পারছে।
+দুই বা তথদিক টাইপ কে নিয়ে নতুন একটা টাইপ তৈরী করতে
+
+
+৫.Intersection Type: Intersection মানে হলো দুই বা তার বেশি টাইপ কে নিয়ে নতুন একটা টাইপ তৈরী করা। আর সহজ ভাবে বললে Intersection মানে হলো — একটা ভেরিয়েবল একাধিক টাইপের বৈশিষ্ট্য একসাথে পাবে। একটা উদাহরণ দিলে আরো ভালো ভাবে বুঝতে পারবেন, ধরুন আপনি একটা ব্যক্তির নাম রাখতে চান, আর সেই ব্যক্তি যদি কর্মচারীও হয়, তাহলে তার আইডিও লাগবে। তাহলে এখন staff নামে একটা টাইপ বানাই যাতে কিনা name ও employeeId দুইটাই থাকে
+
+type Person = {
+  name: string;
+};
+
+type Employee = {
+  employeeId: number;
+};
+
+type Staff = Person & Employee;
+
+const nahida: Staff = {
+  name: "Nahida",
+  employeeId: 101
+};
+
+এখানে আমরা দেখতে পাচ্ছি Person ও Employee type এর বৈশিষ্ট্য স্টাফ টাইপ এর মধ্যে রয়েছে । তাই আমরা এই স্টাফ টাইপ টাকে Intersection Type বলতে পারি । 
+
+
+
+
+
+
